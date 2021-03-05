@@ -8,12 +8,14 @@ In order to utilize this tool, follow the steps in the two sections below:
 
 ### Getting S/MIME File:
 1. Go to your webmail and find the offending encrypted email that you can't open. 
-1. You should see that the email has an attachment called "smime.p7m"
+1. You should see that the email has an attachment called "smime.p7m". This attachment should be visible in the webmail editor when you go to forward the email.
 1. Download that attachment somewhere to your computer. This is the encrypted version of the email you can't open, and includes attachments as well.
 
 ### Getting and using script:
 1. Download .sh and .py scripts from this github repository, put them in the same folder on your computer
 1. Open a terminal in the folder and run the shell script: `bash mrs-smime.sh`
+    1. You can open a terminal preloaded to the correct folder by right clicking the folder that holds the scripts, opening `Services` and selecting `New Terminal at Folder`.
+    ![ezgif-6-ae4a6035d63a](https://user-images.githubusercontent.com/5260472/110052965-17fed680-7d1e-11eb-9b97-1fca2d7e4b3e.gif)
 1. On the first file selection window, select the "smime.p7m" file you downloaded earlier
 1. On the second file window, choose or create a folder to save the raw decrypted text output
 1. Enter your pin when prompted
