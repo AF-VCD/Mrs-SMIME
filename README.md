@@ -30,7 +30,7 @@ The script produces a few things:
 ## Notes on implementation and usage
 - This only works on Mac, not Linux or Windows. In order for this to work, 
 your computer needs to at least be able to access webmail (have correct certificates, etc).
-- For Windows 10 see the related project: Mr-SMIME.
+- For Windows 10 see the related project: [Mr-SMIME](https://github.com/AF-VCD/Mr-SMIME).
 - My script does not see anything related to your card, like your PIN; that part is 
 handled by native Apple security libraries. The script tells the Mac to decrypt the email, 
 and the Mac figures out that it can't decrypt the email without the PIN, and asks you for it on its own.
