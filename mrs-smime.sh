@@ -37,7 +37,7 @@ decrypted="$outFolder/decrypted.smime"
 security cms -D -i "$p7mFile" \
   | sed '/Content-.*$/d' \
   | sed 's/\r$//' \
-  | base64 -d \
+  | base64 --decode \
   | tail -c +55 > "$decrypted" 
 if [ $? -ne 0 ] || [ ! -s "$decrypted" ] ; then { echo 'Failed to decrypt or decode file' ; exit 1; } fi
 
