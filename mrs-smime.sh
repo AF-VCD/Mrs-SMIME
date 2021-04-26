@@ -29,16 +29,17 @@ echo "Decrypting and decoding file ..."
 decrypted="$outFolder/decrypted.smime"
 
 # - Decrypts file using native mac stuff
-# - Removes MIME headers 
-# - Removes new lines
+# - Removes MIME headers (sed: delete (/d) all lines from line 1 to pattern: line with nothing in it)
+# - Removes new lines 
 # - Decodes out of base 64 
-# - Strips 55 bytes of digital signature (probably) from the front of file
+# - Takes out everything before "MIME-Version" (the signature bytes) on the first line
 # - Outputs to 'decrypted.smime' in the selected output folder
 security cms -D -i "$p7mFile" \
-  | sed '/Content-.*$/d' \
+  | sed '1,/^\s*\r$/d' \
   | sed 's/\r$//' \
   | base64 --decode \
-  | tail -c +55 > "$decrypted" 
+  | perl -pe '$. == 1? s/^.*(MIME-Version: [\d\.]+)/$1/ : "" ' \
+  > $decrypted
 if [ $? -ne 0 ] || [ ! -s "$decrypted" ] ; then { echo 'Failed to decrypt or decode file' ; exit 1; } fi
 
 
