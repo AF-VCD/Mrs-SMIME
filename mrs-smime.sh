@@ -35,11 +35,18 @@ decrypted="$outFolder/decrypted.smime"
 # - Takes out everything before "MIME-Version" (the signature bytes) on the first line
 # - Outputs to 'decrypted.smime' in the selected output folder
 security cms -D -i "$p7mFile" \
+  > $decrypted
+
+# check to see if file is already decoded
+if !  grep -q 'Content-Type: text/plain' $decrypted; then
+  cat $decrypted \
   | sed '1,/^\s*\r$/d' \
   | sed 's/\r$//' \
   | base64 --decode \
   | perl -pe '$. == 1? s/^.*(MIME-Version: [\d\.]+)/$1/ : "" ' \
   > $decrypted
+fi
+
 if [ $? -ne 0 ] || [ ! -s "$decrypted" ] ; then { echo 'Failed to decrypt or decode file' ; exit 1; } fi
 
 
